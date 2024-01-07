@@ -1,32 +1,39 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
-  Switch,
+  createBrowserRouter,
+  createRoutesFromElements,
   Route,
-  Redirect,
+  RouterProvider,
 } from 'react-router-dom'
 
 import { Navbar } from './app/Navbar'
+import { PostList } from './features/post/PostList'
+import AddPostForm from './features/post/AddPostForm'
+import SinglePostPage from './features/post/SinglePostPage'
+import EditPostForm from './features/post/EditPostForm'
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Navbar />}>
+      <Route
+        path="/"
+        element={
+          <>
+            <AddPostForm />
+            <PostList />
+          </>
+        }
+      />
+      <Route path="/posts/:postId" element={<SinglePostPage />} />
+      <Route path='/editPost/:postId' element={<EditPostForm />} />
+    </Route>
+  )
+)
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <div className="App">
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <section>
-                <h2>Welcome to the Redux Essentials example app!</h2>
-              </section>
-            )}
-          />
-          <Redirect to="/" />
-        </Switch>
-      </div>
-    </Router>
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
   )
 }
 

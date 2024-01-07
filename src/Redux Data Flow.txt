@@ -1,0 +1,5 @@
+// Redux Toolkit Data Flow. 
+
+Step 1: Crate your feature slice eg. userSlice
+
+Step 2: import the reducer (userSlice) into the store.js 
